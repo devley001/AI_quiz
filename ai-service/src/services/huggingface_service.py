@@ -1,7 +1,5 @@
 import os
 import logging
-from transformers import pipeline, AutoTokenizer, AutoModelForSequenceClassification
-import torch
 
 logger = logging.getLogger(__name__)
 
@@ -10,24 +8,38 @@ class HuggingFaceService:
         self.sentiment_pipeline = None
         self.text_generation_pipeline = None
         self.ner_pipeline = None
-        self._initialize_models()
+        self.transformers_available = False
+        self._check_transformers_availability()
+        if self.transformers_available:
+            self._initialize_models()
     
+    def _check_transformers_availability(self):
+        """Check if transformers library is available"""
+        try:
+            import transformers
+            self.transformers_available = True
+            logger.info("Transformers library is available")
+        except ImportError:
+            self.transformers_available = False
+            logger.warning("Transformers library not available, using fallback mode")
+
     def _initialize_models(self):
         """Initialize HuggingFace models"""
         try:
+            from transformers import pipeline
             # Initialize with lighter models
             logger.info("Initializing lightweight models...")
-            
+
             # Use default sentiment model (lighter)
             self.sentiment_pipeline = pipeline("sentiment-analysis")
             logger.info("Sentiment pipeline initialized")
-            
+
             # Skip heavy models to avoid memory issues
             self.text_generation_pipeline = None
             self.ner_pipeline = None
-            
+
             logger.info("HuggingFace models initialized successfully")
-            
+
         except Exception as e:
             logger.error(f"Failed to initialize HuggingFace models: {str(e)}")
             # Initialize fallback models
@@ -46,12 +58,21 @@ class HuggingFaceService:
     
     def analyze_sentiment(self, text):
         """Analyze sentiment of text"""
+        if not self.transformers_available:
+            # Fallback when transformers is not available
+            logger.warning("Using fallback sentiment analysis")
+            return {
+                'overall_sentiment': 'neutral',
+                'confidence': 0.5,
+                'scores': {'neutral': 0.5}
+            }
+
         try:
             if not self.sentiment_pipeline:
                 raise Exception("Sentiment pipeline not initialized")
-            
+
             results = self.sentiment_pipeline(text)
-            
+
             # Process results
             if isinstance(results[0], list):
                 # Multiple scores returned
@@ -64,7 +85,7 @@ class HuggingFaceService:
                         sentiment_scores['negative'] = result['score']
                     elif 'neutral' in label:
                         sentiment_scores['neutral'] = result['score']
-                
+
                 # Determine overall sentiment
                 max_sentiment = max(sentiment_scores.items(), key=lambda x: x[1])
                 overall_sentiment = max_sentiment[0]
@@ -74,13 +95,13 @@ class HuggingFaceService:
                 overall_sentiment = results[0]['label'].lower()
                 confidence = results[0]['score']
                 sentiment_scores = {overall_sentiment: confidence}
-            
+
             return {
                 'overall_sentiment': overall_sentiment,
                 'confidence': confidence,
                 'scores': sentiment_scores
             }
-            
+
         except Exception as e:
             logger.error(f"Sentiment analysis failed: {str(e)}")
             # Return neutral sentiment as fallback
@@ -129,16 +150,25 @@ class HuggingFaceService:
     
     def classify_text(self, text, labels):
         """Classify text into given labels"""
+        if not self.transformers_available:
+            # Fallback when transformers is not available
+            logger.warning("Using fallback text classification")
+            return {
+                'predicted_label': labels[0] if labels else 'unknown',
+                'scores': {label: 1.0/len(labels) for label in labels} if labels else {}
+            }
+
         try:
+            from transformers import pipeline
             # Use zero-shot classification
             classifier = pipeline("zero-shot-classification")
             result = classifier(text, labels)
-            
+
             return {
                 'predicted_label': result['labels'][0],
                 'scores': dict(zip(result['labels'], result['scores']))
             }
-            
+
         except Exception as e:
             logger.error(f"Text classification failed: {str(e)}")
             # Return first label as fallback

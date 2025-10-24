@@ -143,3 +143,42 @@
 2025-10-24 20:00:54,088 - werkzeug - INFO -  * Debugger PIN: 103-913-572
 2025-10-24 20:04:20,546 - werkzeug - INFO - 127.0.0.1 - - [24/Oct/2025 20:04:20] "POST /api/generate/quiz HTTP/1.1" 200 -
 2025-10-24 20:04:40,407 - werkzeug - INFO - 127.0.0.1 - - [24/Oct/2025 20:04:40] "POST /api/generate/quiz HTTP/1.1" 200 -
+2025-10-24 21:19:35,156 - __main__ - INFO - Starting AI Service on port 8000
+2025-10-24 21:19:35,331 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://10.17.5.175:8000
+2025-10-24 21:19:35,333 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-24 21:19:35,338 - werkzeug - INFO -  * Restarting with stat
+2025-10-24 21:20:03,077 - __main__ - INFO - Starting AI Service on port 8000
+2025-10-24 21:20:03,116 - werkzeug - WARNING -  * Debugger is active!
+2025-10-24 21:20:03,125 - werkzeug - INFO -  * Debugger PIN: 103-913-572
+2025-10-24 21:20:24,989 - werkzeug - INFO - 127.0.0.1 - - [24/Oct/2025 21:20:24] "GET /health HTTP/1.1" 200 -
+2025-10-24 21:20:38,211 - werkzeug - INFO - 127.0.0.1 - - [24/Oct/2025 21:20:38] "POST /api/analyze/text HTTP/1.1" 200 -
+2025-10-24 21:20:48,578 - werkzeug - INFO - 127.0.0.1 - - [24/Oct/2025 21:20:48] "POST /api/analyze/sentiment HTTP/1.1" 200 -
+2025-10-24 21:29:51,929 - __main__ - INFO - Starting AI Service on port 8000
+2025-10-24 21:29:52,001 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://10.17.5.175:8000
+2025-10-24 21:29:52,003 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-24 21:29:52,006 - werkzeug - INFO -  * Restarting with stat
+2025-10-24 21:30:17,994 - __main__ - INFO - Starting AI Service on port 8000
+2025-10-24 21:30:18,042 - werkzeug - WARNING -  * Debugger is active!
+2025-10-24 21:30:18,056 - werkzeug - INFO -  * Debugger PIN: 103-913-572
+2025-10-24 21:32:29,930 - werkzeug - INFO - 127.0.0.1 - - [24/Oct/2025 21:32:29] "POST /api/generate/quiz HTTP/1.1" 200 -
+2025-10-24 22:21:15,984 - werkzeug - INFO - 127.0.0.1 - - [24/Oct/2025 22:21:15] "POST /api/generate/quiz HTTP/1.1" 200 -
+2025-10-24 22:51:50,831 - __main__ - INFO - Starting AI Service on port 8000
+2025-10-24 22:51:50,905 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://10.17.5.175:8000
+2025-10-24 22:51:50,905 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-24 22:51:50,913 - werkzeug - INFO -  * Restarting with stat
+2025-10-24 22:52:33,409 - __main__ - INFO - Starting AI Service on port 8000
+2025-10-24 22:52:33,451 - werkzeug - WARNING -  * Debugger is active!
+2025-10-24 22:52:33,463 - werkzeug - INFO -  * Debugger PIN: 103-913-572
+2025-10-24 23:03:58,648 - werkzeug - INFO - 127.0.0.1 - - [24/Oct/2025 23:03:58] "GET /health HTTP/1.1" 200 -
+2025-10-24 23:06:38,613 - werkzeug - INFO - 127.0.0.1 - - [24/Oct/2025 23:06:38] "POST /api/analyze/text HTTP/1.1" 200 -
+2025-10-24 23:06:39,323 - werkzeug - INFO - 127.0.0.1 - - [24/Oct/2025 23:06:39] "POST /api/generate/quiz HTTP/1.1" 200 -
+2025-10-24 23:06:41,949 - werkzeug - INFO - 127.0.0.1 - - [24/Oct/2025 23:06:41] "POST /api/analyze/sentiment HTTP/1.1" 200 -

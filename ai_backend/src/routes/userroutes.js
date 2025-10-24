@@ -13,5 +13,6 @@ router.get('/', authorize('admin'), userController.getAllUsers);
 router.get('/:id', userController.getUserById);
 router.put('/profile', userController.updateUser);
 router.delete('/:id', authorize('admin'), userController.deleteUser);
+router.get('/profile/download', userController.downloadProfile);
 
 module.exports = router;

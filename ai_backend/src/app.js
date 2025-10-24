@@ -9,6 +9,8 @@ const morgan = require('morgan');
 // Import routes
 const authRoutes = require('./routes/authroutes');
 const userRoutes = require('./routes/userroutes');
+const studentRoutes = require('./routes/studentroutes');
+const quizRoutes = require('./routes/quizroutes');
 const dataRoutes = require('./routes/dataroutes');
 const aiRoutes = require('./routes/airoutes');
 
@@ -41,6 +43,8 @@ app.use(rateLimiter);
 // API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/students', studentRoutes);
+app.use('/api/quizzes', quizRoutes);
 app.use('/api/data', dataRoutes);
 app.use('/api/ai', aiRoutes);
 

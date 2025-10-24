@@ -1,4 +1,3 @@
-
 // ============================================
 // FILE: src/services/userService.js
 // ============================================
@@ -24,6 +23,28 @@ const userService = {
   deleteUser: async (id) => {
     const response = await api.delete(`/users/${id}`);
     return response;
+  },
+
+  getStudentProfile: async () => {
+    const response = await api.get('/students/profile');
+    return response.data;
+  },
+
+  updateStudentProfile: async (studentData) => {
+    const response = await api.post('/students/profile', studentData);
+    return response.data;
+  },
+
+  getQuizResults: async () => {
+    const response = await api.get('/quizzes/results');
+    return response.data;
+  },
+
+  downloadProfile: async () => {
+    const response = await api.get('/users/profile/download', {
+      responseType: 'blob'
+    });
+    return response.data;
   }
 };
 
