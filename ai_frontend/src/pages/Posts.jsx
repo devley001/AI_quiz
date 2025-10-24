@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import dataService from '../services/dataService';
+import './Posts.css';
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
@@ -11,29 +12,44 @@ const Posts = () => {
     const fetchPosts = async () => {
       try {
         setLoading(true);
-        const data = await dataService.getAllPosts({ status: 'published' });
-        setPosts(data.posts || []);
+        setError('');
+        const response = await dataService.getAllPosts();
+        const postsData = response.posts || response.data?.posts || [];
+        setPosts(postsData);
       } catch (err) {
         console.error('Error fetching posts:', err);
-        setError('Failed to load posts');
-        // Fallback to mock data if API fails
-        const mockPosts = [
+        setError('Failed to load posts. Showing sample data.');
+        // Fallback to sample data if API fails
+        const samplePosts = [
           {
-            _id: '1',
-            title: 'Getting Started with React',
-            content: 'React is a powerful JavaScript library for building user interfaces...',
-            author: { name: 'John Doe' },
-            createdAt: '2024-01-15'
+            _id: 'sample-1',
+            title: 'Welcome to AI Quiz App',
+            content: 'This is a comprehensive AI-powered quiz application that combines machine learning with interactive learning experiences. Explore text analysis, quiz generation, and intelligent recommendations.',
+            author: { name: 'AI Assistant', email: 'ai@app.com' },
+            createdAt: new Date().toISOString(),
+            views: 42,
+            likes: []
           },
           {
-            _id: '2',
-            title: 'Understanding Node.js',
-            content: 'Node.js is a runtime environment that allows you to run JavaScript on the server...',
-            author: { name: 'Jane Smith' },
-            createdAt: '2024-01-14'
+            _id: 'sample-2',
+            title: 'How to Use AI Text Analysis',
+            content: 'Our AI service provides powerful text analysis capabilities including sentiment analysis, entity recognition, keyword extraction, and readability scoring. Learn how to leverage these features for your projects.',
+            author: { name: 'System Admin', email: 'admin@app.com' },
+            createdAt: new Date(Date.now() - 86400000).toISOString(),
+            views: 28,
+            likes: []
+          },
+          {
+            _id: 'sample-3',
+            title: 'Quiz Generation with AI',
+            content: 'Generate intelligent quizzes on any topic using our advanced AI algorithms. Customize difficulty levels, question types, and get instant feedback on your knowledge.',
+            author: { name: 'Quiz Bot', email: 'quiz@app.com' },
+            createdAt: new Date(Date.now() - 172800000).toISOString(),
+            views: 35,
+            likes: []
           }
         ];
-        setPosts(mockPosts);
+        setPosts(samplePosts);
       } finally {
         setLoading(false);
       }

@@ -21,3 +21,97 @@
 2025-10-24 06:25:29,964 - werkzeug - INFO -  * Debugger PIN: 103-913-572
 2025-10-24 06:58:45,903 - werkzeug - INFO - 127.0.0.1 - - [24/Oct/2025 06:58:45] "POST /api/generate/quiz HTTP/1.1" 200 -
 2025-10-24 07:15:35,053 - werkzeug - INFO -  * Detected change in 'C:\\Users\\user\\Desktop\\git projects\\AI_quiz\\ai-service\\src\\services\\openai_service.py', reloading
+2025-10-24 13:19:23,164 - __main__ - INFO - Starting AI Service on port 8000
+2025-10-24 13:19:23,341 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://10.17.5.175:8000
+2025-10-24 13:19:23,349 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-24 13:19:23,359 - werkzeug - INFO -  * Restarting with stat
+2025-10-24 13:19:59,434 - __main__ - INFO - Starting AI Service on port 8000
+2025-10-24 13:19:59,467 - werkzeug - WARNING -  * Debugger is active!
+2025-10-24 13:19:59,477 - werkzeug - INFO -  * Debugger PIN: 103-913-572
+2025-10-24 14:11:34,328 - __main__ - INFO - Starting AI Service on port 8000
+2025-10-24 14:11:34,583 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://10.17.5.175:8000
+2025-10-24 14:11:34,728 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-24 14:11:34,772 - werkzeug - INFO -  * Restarting with stat
+2025-10-24 14:12:12,360 - __main__ - INFO - Starting AI Service on port 8000
+2025-10-24 14:12:12,408 - werkzeug - WARNING -  * Debugger is active!
+2025-10-24 14:12:12,417 - werkzeug - INFO -  * Debugger PIN: 103-913-572
+2025-10-24 14:14:11,967 - __main__ - INFO - Starting AI Service on port 8000
+2025-10-24 14:14:12,005 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://10.17.5.175:8000
+2025-10-24 14:14:12,005 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-24 14:14:12,010 - werkzeug - INFO -  * Restarting with stat
+2025-10-24 14:14:41,333 - __main__ - INFO - Starting AI Service on port 8000
+2025-10-24 14:14:41,364 - werkzeug - WARNING -  * Debugger is active!
+2025-10-24 14:14:41,371 - werkzeug - INFO -  * Debugger PIN: 103-913-572
+2025-10-24 14:26:25,106 - werkzeug - INFO -  * Detected change in 'c:\\Users\\user\\Downloads\\AI_quiz\\ai-service\\src\\app-simple.py', reloading
+2025-10-24 14:26:27,335 - werkzeug - INFO -  * Restarting with stat
+2025-10-24 14:27:07,699 - __main__ - INFO - Starting AI Service on port 8000
+2025-10-24 14:27:07,738 - werkzeug - WARNING -  * Debugger is active!
+2025-10-24 14:27:07,743 - werkzeug - INFO -  * Debugger PIN: 103-913-572
+2025-10-24 14:27:37,656 - werkzeug - INFO -  * Detected change in 'c:\\Users\\user\\Downloads\\AI_quiz\\ai-service\\src\\controllers\\prediction_controller.py', reloading
+2025-10-24 14:27:39,954 - werkzeug - INFO -  * Restarting with stat
+2025-10-24 14:28:23,544 - __main__ - INFO - Starting AI Service on port 8000
+2025-10-24 14:28:23,599 - werkzeug - WARNING -  * Debugger is active!
+2025-10-24 14:28:23,608 - werkzeug - INFO -  * Debugger PIN: 103-913-572
+2025-10-24 14:39:42,637 - werkzeug - INFO -  * Detected change in 'c:\\Users\\user\\Downloads\\AI_quiz\\ai-service\\src\\services\\huggingface_service.py', reloading
+2025-10-24 14:39:46,444 - werkzeug - INFO -  * Restarting with stat
+2025-10-24 14:40:20,115 - __main__ - INFO - Starting AI Service on port 8000
+2025-10-24 14:40:20,175 - werkzeug - WARNING -  * Debugger is active!
+2025-10-24 14:40:20,184 - werkzeug - INFO -  * Debugger PIN: 103-913-572
+2025-10-24 14:40:25,028 - __main__ - INFO - Starting AI Service on port 8000
+2025-10-24 14:40:25,096 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://10.17.5.175:8000
+2025-10-24 14:40:25,097 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-24 14:40:25,101 - werkzeug - INFO -  * Restarting with stat
+2025-10-24 14:40:58,086 - __main__ - INFO - Starting AI Service on port 8000
+2025-10-24 14:40:58,207 - werkzeug - WARNING -  * Debugger is active!
+2025-10-24 14:40:58,254 - werkzeug - INFO -  * Debugger PIN: 103-913-572
+2025-10-24 14:48:40,693 - werkzeug - INFO -  * Detected change in 'c:\\Users\\user\\Downloads\\AI_quiz\\ai-service\\src\\controllers\\prediction_controller.py', reloading
+2025-10-24 14:48:41,814 - werkzeug - INFO -  * Detected change in 'c:\\Users\\user\\Downloads\\AI_quiz\\ai-service\\src\\controllers\\prediction_controller.py', reloading
+2025-10-24 14:48:43,876 - werkzeug - INFO -  * Restarting with stat
+2025-10-24 14:48:44,904 - werkzeug - INFO -  * Restarting with stat
+2025-10-24 14:50:23,425 - __main__ - INFO - Starting AI Service on port 8000
+2025-10-24 14:50:23,445 - __main__ - INFO - Starting AI Service on port 8000
+2025-10-24 14:50:23,466 - werkzeug - WARNING -  * Debugger is active!
+2025-10-24 14:50:23,474 - werkzeug - INFO -  * Debugger PIN: 103-913-572
+2025-10-24 14:50:23,524 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://10.17.5.175:8000
+2025-10-24 14:50:23,529 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-24 14:50:23,536 - werkzeug - INFO -  * Restarting with stat
+2025-10-24 14:50:25,375 - __main__ - INFO - Starting AI Service on port 8000
+2025-10-24 14:50:25,413 - werkzeug - WARNING -  * Debugger is active!
+2025-10-24 14:50:25,421 - werkzeug - INFO -  * Debugger PIN: 103-913-572
+2025-10-24 14:51:01,814 - __main__ - INFO - Starting AI Service on port 8000
+2025-10-24 14:51:01,865 - werkzeug - WARNING -  * Debugger is active!
+2025-10-24 14:51:01,877 - werkzeug - INFO -  * Debugger PIN: 103-913-572
+2025-10-24 14:53:09,400 - werkzeug - INFO - 127.0.0.1 - - [24/Oct/2025 14:53:09] "POST /api/generate/quiz HTTP/1.1" 200 -
+2025-10-24 14:53:24,293 - werkzeug - INFO - 127.0.0.1 - - [24/Oct/2025 14:53:24] "POST /api/generate/quiz HTTP/1.1" 200 -
+2025-10-24 14:53:50,337 - werkzeug - INFO - 127.0.0.1 - - [24/Oct/2025 14:53:50] "POST /api/generate/quiz HTTP/1.1" 200 -
+2025-10-24 14:55:40,504 - werkzeug - INFO -  * Detected change in 'c:\\Users\\user\\Downloads\\AI_quiz\\ai-service\\src\\controllers\\prediction_controller.py', reloading
+2025-10-24 14:55:44,187 - werkzeug - INFO -  * Detected change in 'C:\\Users\\user\\Downloads\\AI_quiz\\ai-service\\src\\controllers\\prediction_controller.py', reloading
+2025-10-24 14:55:44,784 - werkzeug - INFO -  * Detected change in 'c:\\Users\\user\\Downloads\\AI_quiz\\ai-service\\src\\controllers\\prediction_controller.py', reloading
+2025-10-24 14:55:45,288 - werkzeug - INFO -  * Restarting with stat
+2025-10-24 14:55:48,406 - werkzeug - INFO -  * Restarting with stat
+2025-10-24 14:55:49,080 - werkzeug - INFO -  * Restarting with stat
+2025-10-24 14:56:40,010 - __main__ - INFO - Starting AI Service on port 8000
+2025-10-24 14:56:40,051 - werkzeug - WARNING -  * Debugger is active!
+2025-10-24 14:56:40,064 - werkzeug - INFO -  * Debugger PIN: 103-913-572
+2025-10-24 14:56:44,114 - __main__ - INFO - Starting AI Service on port 8000
+2025-10-24 14:56:44,188 - werkzeug - WARNING -  * Debugger is active!
+2025-10-24 14:56:44,202 - werkzeug - INFO -  * Debugger PIN: 103-913-572
+2025-10-24 14:56:44,236 - __main__ - INFO - Starting AI Service on port 8000
+2025-10-24 14:56:44,308 - werkzeug - WARNING -  * Debugger is active!
+2025-10-24 14:56:44,355 - werkzeug - INFO -  * Debugger PIN: 103-913-572
+2025-10-24 15:45:42,396 - werkzeug - INFO - 127.0.0.1 - - [24/Oct/2025 15:45:42] "POST /api/generate/quiz HTTP/1.1" 200 -

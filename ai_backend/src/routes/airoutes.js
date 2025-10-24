@@ -20,7 +20,6 @@ router.post('/test-token', async (req, res) => {
 });
 
 // AI process endpoint (optional auth)
-const optionalAuthMiddleware = require('../middleware/optionalAuthMiddleware');
 router.post('/process', optionalAuthMiddleware, aiController.processAIRequest);
 
 router.use(authMiddleware);

@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 import aiService from '../services/aiService';
 import authService from '../services/authService';
 import LoginPrompt from '../components/common/LoginPrompt';
+import Quiz from '../components/common/Quiz';
 import './AIAssistant.css';
 
 const AIAssistant = () => {
@@ -90,7 +91,9 @@ const AIAssistant = () => {
         numQuestions,
         difficulty
       });
-      setResult(response.data);
+      // Extract the actual result from the nested response structure
+      const resultData = response.data?.result || response.result || response.data || response;
+      setResult(resultData);
     } catch (err) {
       setError(err.message || 'Quiz generation failed');
     } finally {
@@ -113,7 +116,8 @@ const AIAssistant = () => {
         maxLength,
         temperature
       });
-      setResult(response.data);
+      const resultData = response.data?.result || response.result || response.data || response;
+      setResult(resultData);
     } catch (err) {
       setError(err.message || 'Text generation failed');
     } finally {
@@ -162,23 +166,26 @@ const AIAssistant = () => {
             <h3>Quiz Generation</h3>
             <div className="input-group">
               <label>Topic:</label>
-              <select
+              <input
+                type="text"
                 value={quizTopic}
                 onChange={(e) => setQuizTopic(e.target.value)}
-                className="select-input"
-              >
-                <option value="">Select a topic...</option>
-                <option value="Science">Science</option>
-                <option value="History">History</option>
-                <option value="Mathematics">Mathematics</option>
-                <option value="Geography">Geography</option>
-                <option value="Literature">Literature</option>
-                <option value="Technology">Technology</option>
-                <option value="Sports">Sports</option>
-                <option value="Art">Art</option>
-                <option value="Music">Music</option>
-                <option value="General Knowledge">General Knowledge</option>
-              </select>
+                placeholder="Enter a topic (e.g., Science, History, Mathematics)"
+                className="text-input"
+                list="topic-suggestions"
+              />
+              <datalist id="topic-suggestions">
+                <option value="Science" />
+                <option value="History" />
+                <option value="Mathematics" />
+                <option value="Geography" />
+                <option value="Literature" />
+                <option value="Technology" />
+                <option value="Sports" />
+                <option value="Art" />
+                <option value="Music" />
+                <option value="General Knowledge" />
+              </datalist>
             </div>
             <div className="input-row">
               <div className="input-group">
@@ -273,11 +280,120 @@ const AIAssistant = () => {
   const renderResult = () => {
     if (!result) return null;
 
+    // Handle quiz generation results
+    if (activeTab === 'quiz-generation' && (result.quiz || result.questions)) {
+      const quizData = result.quiz || { questions: result.questions };
+      const questions = quizData.questions || result.questions;
+      
+      const downloadQuiz = () => {
+        const content = `${quizTopic} Quiz\n\nTopic: ${quizTopic}\nQuestions: ${questions.length}\nDifficulty: ${difficulty}\n\n` +
+          questions.map((q, i) => 
+            `Question ${i + 1}: ${q.question}\n` +
+            q.options.map((opt, j) => `${String.fromCharCode(65 + j)}) ${opt}`).join('\n') +
+            '\n\n'
+          ).join('');
+        
+        const blob = new Blob([content], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${quizTopic.replace(/\s+/g, '_')}_Quiz.txt`;
+        a.click();
+        URL.revokeObjectURL(url);
+      };
+      
+      return (
+        <div className="result-section">
+          <div className="quiz-header-actions">
+            <h4>Generated Quiz: {quizTopic}</h4>
+            <button onClick={downloadQuiz} className="btn btn-secondary">
+              Download Quiz
+            </button>
+          </div>
+          <Quiz 
+            quizData={quizData} 
+            onSubmit={(quizResults) => {
+              console.log('Quiz completed:', quizResults);
+            }}
+          />
+        </div>
+      );
+    }
+
+    // Handle text generation results
+    if (activeTab === 'text-generation' && result.generated_text) {
+      return (
+        <div className="result-section">
+          <h4>Generated Text:</h4>
+          <div className="text-result">
+            <div className="generated-content">
+              {result.generated_text}
+            </div>
+            <div className="text-stats">
+              <span>Length: {result.generated_text.length} characters</span>
+              <span>Words: {result.generated_text.split(' ').length}</span>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // Handle text analysis results
+    if (activeTab === 'text-analysis' && (result.sentiment || result.entities || result.keywords)) {
+      return (
+        <div className="result-section">
+          <h4>Analysis Results:</h4>
+          <div className="analysis-results">
+            {result.sentiment && (
+              <div className="analysis-card">
+                <h5>Sentiment Analysis</h5>
+                <div className="sentiment-result">
+                  <span className={`sentiment-label ${result.sentiment.label?.toLowerCase()}`}>
+                    {result.sentiment.label}
+                  </span>
+                  <span className="confidence">
+                    Confidence: {(result.sentiment.score * 100).toFixed(1)}%
+                  </span>
+                </div>
+              </div>
+            )}
+            
+            {result.entities && result.entities.length > 0 && (
+              <div className="analysis-card">
+                <h5>Named Entities</h5>
+                <div className="entities-list">
+                  {result.entities.map((entity, index) => (
+                    <span key={index} className="entity-tag">
+                      {entity.text} ({entity.label})
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+            
+            {result.keywords && result.keywords.length > 0 && (
+              <div className="analysis-card">
+                <h5>Keywords</h5>
+                <div className="keywords-list">
+                  {result.keywords.map((keyword, index) => (
+                    <span key={index} className="keyword-tag">
+                      {keyword}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    // Fallback - hide technical details
     return (
       <div className="result-section">
         <h4>Result:</h4>
-        <div className="result-content">
-          <pre>{JSON.stringify(result, null, 2)}</pre>
+        <div className="simple-result">
+          <p>Processing completed successfully.</p>
         </div>
       </div>
     );

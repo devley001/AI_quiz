@@ -192,6 +192,202 @@
   word-wrap: break-word;
 }
 
+/* Text Generation Results */
+.text-result {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.generated-content {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 6px;
+  border: 1px solid #dee2e6;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  white-space: pre-wrap;
+}
+
+.text-stats {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+/* Analysis Results */
+.analysis-results {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.analysis-card {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.analysis-card h5 {
+  margin-bottom: 1rem;
+  color: #333;
+  font-size: 1.1rem;
+  border-bottom: 2px solid #e9ecef;
+  padding-bottom: 0.5rem;
+}
+
+.sentiment-result {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.sentiment-label {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+
+.sentiment-label.positive {
+  background: #d4edda;
+  color: #155724;
+}
+
+.sentiment-label.negative {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.sentiment-label.neutral {
+  background: #e2e3e5;
+  color: #383d41;
+}
+
+.confidence {
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+.entities-list, .keywords-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.entity-tag, .keyword-tag {
+  background: #e3f2fd;
+  color: #1976d2;
+  padding: 0.25rem 0.75rem;
+  border-radius: 15px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.entity-tag {
+  background: #f3e5f5;
+  color: #7b1fa2;
+}
+
+/* Quiz Word Format Styles */
+.quiz-word-format {
+  background: white;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 2rem;
+  font-family: 'Georgia', serif;
+  line-height: 1.6;
+}
+
+.quiz-header-info {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 2rem;
+  border-left: 4px solid #007bff;
+}
+
+.quiz-header-info p {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+}
+
+.question-block {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.question-block:last-child {
+  border-bottom: none;
+}
+
+.question-block h5 {
+  color: #333;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.question-text {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.options-block {
+  margin: 1rem 0;
+  padding-left: 1rem;
+}
+
+.option-line {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+  gap: 0.5rem;
+}
+
+.option-letter {
+  font-weight: bold;
+  color: #007bff;
+  min-width: 20px;
+}
+
+.option-text {
+  flex: 1;
+}
+
+.correct-answer {
+  background: #d4edda;
+  color: #155724;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.simple-result {
+  text-align: center;
+  padding: 2rem;
+  color: #28a745;
+  font-size: 1.1rem;
+}
+
+.quiz-header-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.quiz-header-actions h4 {
+  margin: 0;
+}
+
 @media (max-width: 768px) {
   .ai-assistant-page .container {
     padding: 0 0.5rem;
@@ -220,5 +416,27 @@
   
   .content {
     padding: 1rem;
+  }
+  
+  .text-stats {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .sentiment-result {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .quiz-word-format {
+    padding: 1rem;
+  }
+  
+  .quiz-header-info {
+    margin-bottom: 1rem;
+  }
+  
+  .question-block {
+    margin-bottom: 1.5rem;
   }
 }

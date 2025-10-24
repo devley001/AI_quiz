@@ -37,27 +37,65 @@ class PredictionController:
     def generate_quiz(self, topic, num_questions=5, difficulty='medium'):
         """Generate quiz questions based on topic"""
         try:
-            questions = []
+            # Predefined quiz templates
+            quiz_templates = {
+                'Science': [
+                    {'question': 'What is the chemical symbol for water?', 'options': ['H2O', 'CO2', 'NaCl', 'O2'], 'correctAnswer': 0},
+                    {'question': 'Which planet is known as the Red Planet?', 'options': ['Venus', 'Mars', 'Jupiter', 'Saturn'], 'correctAnswer': 1},
+                    {'question': 'What is the speed of light?', 'options': ['300,000 km/s', '150,000 km/s', '450,000 km/s', '600,000 km/s'], 'correctAnswer': 0},
+                    {'question': 'What gas do plants absorb?', 'options': ['Oxygen', 'Carbon Dioxide', 'Nitrogen', 'Hydrogen'], 'correctAnswer': 1},
+                    {'question': 'What is the hardest natural substance?', 'options': ['Gold', 'Iron', 'Diamond', 'Silver'], 'correctAnswer': 2}
+                ],
+                'History': [
+                    {'question': 'When did World War II end?', 'options': ['1944', '1945', '1946', '1947'], 'correctAnswer': 1},
+                    {'question': 'Who was the first US President?', 'options': ['Jefferson', 'Adams', 'Washington', 'Franklin'], 'correctAnswer': 2},
+                    {'question': 'Which empire did Julius Caesar rule?', 'options': ['Greek', 'Roman', 'Persian', 'Egyptian'], 'correctAnswer': 1},
+                    {'question': 'When did the Berlin Wall fall?', 'options': ['1987', '1988', '1989', '1990'], 'correctAnswer': 2},
+                    {'question': 'Who wrote the Declaration of Independence?', 'options': ['Washington', 'Franklin', 'Jefferson', 'Adams'], 'correctAnswer': 2}
+                ],
+                'Mathematics': [
+                    {'question': 'What is 15% of 200?', 'options': ['25', '30', '35', '40'], 'correctAnswer': 1},
+                    {'question': 'What is π approximately?', 'options': ['3.14159', '2.71828', '1.41421', '1.73205'], 'correctAnswer': 0},
+                    {'question': 'What is √144?', 'options': ['10', '11', '12', '13'], 'correctAnswer': 2},
+                    {'question': 'What is 7 × 8?', 'options': ['54', '56', '58', '60'], 'correctAnswer': 1},
+                    {'question': 'Sum of angles in a triangle?', 'options': ['90°', '180°', '270°', '360°'], 'correctAnswer': 1},
+                    {'question': 'What is 25% of 80?', 'options': ['15', '20', '25', '30'], 'correctAnswer': 1},
+                    {'question': 'What is 9²?', 'options': ['72', '81', '90', '99'], 'correctAnswer': 1},
+                    {'question': 'What is 144 ÷ 12?', 'options': ['10', '11', '12', '13'], 'correctAnswer': 2},
+                    {'question': 'What is 6 × 9?', 'options': ['52', '54', '56', '58'], 'correctAnswer': 1},
+                    {'question': 'What is √81?', 'options': ['7', '8', '9', '10'], 'correctAnswer': 2}
+                ]
+            }
             
+            # Get questions for the specific topic only
+            available_questions = quiz_templates.get(topic, [])
+            
+            # If topic not found, create generic questions for that topic
+            if not available_questions:
+                available_questions = [
+                    {'question': f'What is a fundamental concept in {topic}?', 'options': [f'{topic} concept A', f'{topic} concept B', f'{topic} concept C', f'{topic} concept D'], 'correctAnswer': 0},
+                    {'question': f'Which principle applies to {topic}?', 'options': [f'Principle A', f'Principle B', f'Principle C', f'Principle D'], 'correctAnswer': 1}
+                ]
+            
+            # Generate exactly the requested number of questions for this topic
+            questions = []
             for i in range(num_questions):
-                # Generate question using AI
-                prompt = f"Generate a {difficulty} difficulty multiple choice question about {topic}. Include 4 options (A, B, C, D) and indicate the correct answer."
-                
-                try:
-                    question_text = self.openai_service.generate_quiz_question(topic, difficulty)
-                except:
-                    # Fallback to template-based generation
-                    question_text = self._generate_fallback_question(topic, difficulty, i + 1)
-                
-                # Parse the generated question
-                parsed_question = self._parse_question(question_text, i + 1)
-                questions.append(parsed_question)
+                if i < len(available_questions):
+                    questions.append(available_questions[i])
+                else:
+                    # Create topic-specific variations
+                    base_q = available_questions[i % len(available_questions)]
+                    variation = dict(base_q)
+                    variation['question'] = f"Advanced {topic}: {base_q['question']}"
+                    questions.append(variation)
             
             return {
-                'topic': topic,
-                'difficulty': difficulty,
-                'total_questions': num_questions,
-                'questions': questions
+                'quiz': {
+                    'title': f'{topic} Quiz',
+                    'topic': topic,
+                    'difficulty': difficulty,
+                    'questions': questions
+                }
             }
             
         except Exception as e:
