@@ -9,3 +9,94 @@
 2025-10-25 00:09:07,439 - werkzeug - WARNING -  * Debugger is active!
 2025-10-25 00:09:07,450 - werkzeug - INFO -  * Debugger PIN: 103-913-572
 2025-10-25 00:57:09,403 - werkzeug - INFO -  * Detected change in 'C:\\Users\\user\\Downloads\\AI_quiz\\ai-service\\src\\controllers\\adaptive_assessment_controller.py', reloading
+2025-10-25 00:57:15,332 - werkzeug - INFO -  * Restarting with stat
+2025-10-25 00:57:53,704 - __main__ - INFO - Starting AI Service on port 8000
+2025-10-25 00:57:53,736 - werkzeug - WARNING -  * Debugger is active!
+2025-10-25 00:57:53,741 - werkzeug - INFO -  * Debugger PIN: 103-913-572
+2025-10-25 01:29:23,000 - werkzeug - INFO -  * Detected change in 'C:\\Users\\user\\Downloads\\AI_quiz\\ai-service\\src\\routes\\adaptive_routes_updated.py', reloading
+2025-10-25 01:29:26,084 - werkzeug - INFO -  * Restarting with stat
+2025-10-25 01:29:51,987 - __main__ - INFO - Starting AI Service on port 8000
+2025-10-25 01:29:52,022 - werkzeug - WARNING -  * Debugger is active!
+2025-10-25 01:29:52,028 - werkzeug - INFO -  * Debugger PIN: 103-913-572
+2025-10-25 02:29:55,553 - __main__ - INFO - Starting AI Service on port 8000
+2025-10-25 02:29:55,714 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://10.17.5.175:8000
+2025-10-25 02:29:55,714 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-25 02:29:55,720 - werkzeug - INFO -  * Restarting with stat
+2025-10-25 02:31:06,013 - __main__ - INFO - Starting AI Service on port 8000
+2025-10-25 02:31:07,022 - werkzeug - WARNING -  * Debugger is active!
+2025-10-25 02:31:07,061 - werkzeug - INFO -  * Debugger PIN: 103-913-572
+2025-10-25 12:52:51,604 - __main__ - INFO - Starting AI Service on port 8000
+2025-10-25 12:52:51,718 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://10.17.7.155:8000
+2025-10-25 12:52:51,718 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-25 12:52:51,723 - werkzeug - INFO -  * Restarting with stat
+2025-10-25 12:53:18,712 - __main__ - INFO - Starting AI Service on port 8000
+2025-10-25 12:53:18,754 - werkzeug - WARNING -  * Debugger is active!
+2025-10-25 12:53:18,768 - werkzeug - INFO -  * Debugger PIN: 103-913-572
+2025-10-25 13:31:06,242 - werkzeug - INFO - 127.0.0.1 - - [25/Oct/2025 13:31:06] "POST /api/analyze/text HTTP/1.1" 200 -
+2025-10-25 13:33:43,456 - __main__ - INFO - Starting AI Service on port 8000
+2025-10-25 13:33:43,565 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://10.17.7.155:8000
+2025-10-25 13:33:43,565 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-25 13:33:43,570 - werkzeug - INFO -  * Restarting with stat
+2025-10-25 13:34:22,613 - __main__ - INFO - Starting AI Service on port 8000
+2025-10-25 13:34:22,671 - werkzeug - WARNING -  * Debugger is active!
+2025-10-25 13:34:22,689 - werkzeug - INFO -  * Debugger PIN: 103-913-572
+2025-10-25 13:36:23,051 - __main__ - INFO - Starting AI Service on port 8000
+2025-10-25 13:36:23,114 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://10.17.7.155:8000
+2025-10-25 13:36:23,115 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-25 13:36:23,120 - werkzeug - INFO -  * Restarting with stat
+2025-10-25 13:36:51,565 - __main__ - INFO - Starting AI Service on port 8000
+2025-10-25 13:36:51,670 - werkzeug - WARNING -  * Debugger is active!
+2025-10-25 13:36:51,715 - werkzeug - INFO -  * Debugger PIN: 103-913-572
+2025-10-25 13:40:28,430 - werkzeug - INFO - 127.0.0.1 - - [25/Oct/2025 13:40:28] "POST /api/generate/quiz HTTP/1.1" 200 -
+2025-10-25 13:51:04,692 - __main__ - INFO - Starting AI Service on port 8000
+2025-10-25 13:51:04,781 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://10.17.7.155:8000
+2025-10-25 13:51:04,783 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-25 13:51:04,788 - werkzeug - INFO -  * Restarting with stat
+2025-10-25 13:51:45,481 - __main__ - INFO - Starting AI Service on port 8000
+2025-10-25 13:51:45,568 - werkzeug - WARNING -  * Debugger is active!
+2025-10-25 13:51:45,583 - werkzeug - INFO -  * Debugger PIN: 103-913-572
+2025-10-25 14:05:56,669 - __main__ - INFO - Starting AI Service on port 8000
+2025-10-25 14:05:56,791 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://10.17.7.155:8000
+2025-10-25 14:05:56,792 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-25 14:05:56,797 - werkzeug - INFO -  * Restarting with stat
+2025-10-25 14:06:23,379 - __main__ - INFO - Starting AI Service on port 8000
+2025-10-25 14:06:23,430 - werkzeug - WARNING -  * Debugger is active!
+2025-10-25 14:06:23,450 - werkzeug - INFO -  * Debugger PIN: 103-913-572
+2025-10-25 14:16:17,134 - __main__ - INFO - Starting AI Service on port 8000
+2025-10-25 14:16:17,215 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://10.17.7.155:8000
+2025-10-25 14:16:17,215 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-25 14:16:17,221 - werkzeug - INFO -  * Restarting with stat
+2025-10-25 14:16:53,253 - __main__ - INFO - Starting AI Service on port 8000
+2025-10-25 14:16:53,332 - werkzeug - WARNING -  * Debugger is active!
+2025-10-25 14:16:53,355 - werkzeug - INFO -  * Debugger PIN: 103-913-572
+2025-10-25 14:30:47,435 - __main__ - INFO - Starting AI Service on port 8000
+2025-10-25 14:30:47,543 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://10.17.7.155:8000
+2025-10-25 14:30:47,543 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-25 14:30:47,549 - werkzeug - INFO -  * Restarting with stat
+2025-10-25 14:31:34,468 - __main__ - INFO - Starting AI Service on port 8000
+2025-10-25 14:31:34,594 - werkzeug - WARNING -  * Debugger is active!
+2025-10-25 14:31:34,615 - werkzeug - INFO -  * Debugger PIN: 103-913-572

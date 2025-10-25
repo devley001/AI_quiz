@@ -35,8 +35,13 @@
   "dependencies": {
     "axios": "^1.12.2",
     "bcryptjs": "^3.0.2",
+    "bootstrap": "^5.3.8",
+    "chart.js": "^4.5.1",
     "docx": "^9.5.1",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.19.2"
+    "mongoose": "^8.19.2",
+    "react-bootstrap": "^2.10.10",
+    "react-chartjs-2": "^5.3.0",
+    "recharts": "^3.3.0"
   }
 }

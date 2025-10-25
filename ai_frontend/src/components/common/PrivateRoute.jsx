@@ -6,9 +6,18 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
 const PrivateRoute = () => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
 
-  return isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />;
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+
+  // Redirect teachers to educator dashboard
+  if (user?.role === 'teacher') {
+    return <Navigate to="/educator-dashboard" replace />;
+  }
+
+  return <Outlet />;
 };
 
 export default PrivateRoute;

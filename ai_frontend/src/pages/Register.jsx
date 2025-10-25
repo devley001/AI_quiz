@@ -10,6 +10,7 @@ import './Auth.css';
 
 const Register = () => {
   const [formData, setFormData] = useState({
+    name: '',
     username: '',
     email: '',
     password: '',
@@ -39,10 +40,16 @@ const Register = () => {
   const validate = () => {
     const newErrors = {};
 
-    if (!formData.username) {
-      newErrors.username = 'Username is required';
-    } else if (formData.username.length < 3) {
+    if (formData.name && formData.name.length < 2) {
+      newErrors.name = 'Name must be at least 2 characters';
+    } else if (formData.name && !/^[a-zA-Z\s]+$/.test(formData.name)) {
+      newErrors.name = 'Name can only contain letters and spaces';
+    }
+
+    if (formData.username && formData.username.length < 3) {
       newErrors.username = 'Username must be at least 3 characters';
+    } else if (formData.username && !/^[a-zA-Z0-9_]+$/.test(formData.username)) {
+      newErrors.username = 'Username can only contain letters, numbers, and underscores';
     }
 
     if (!formData.email) {
@@ -81,13 +88,23 @@ const Register = () => {
     try {
       setLoading(true);
       const { confirmPassword, ...userData } = formData;
-      await register(userData);
+      const response = await register(userData);
+      const userRole = response.data?.user?.role || response.user?.role;
+
       setMessage({ type: 'success', text: 'Registration successful!' });
-      setTimeout(() => navigate('/dashboard'), 1000);
+
+      // Redirect based on role after successful registration
+      setTimeout(() => {
+        if (userRole === 'teacher') {
+          navigate('/educator-dashboard');
+        } else {
+          navigate('/dashboard');
+        }
+      }, 1000);
     } catch (error) {
-      setMessage({ 
-        type: 'error', 
-        text: error.message || 'Registration failed. Please try again.' 
+      setMessage({
+        type: 'error',
+        text: error.message || 'Registration failed. Please try again.'
       });
     } finally {
       setLoading(false);
@@ -110,14 +127,23 @@ const Register = () => {
 
             <form onSubmit={handleSubmit} className="auth-form">
               <Input
+                label="Name"
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                placeholder="Enter your full name (optional)"
+                error={errors.name}
+              />
+
+              <Input
                 label="Username"
                 type="text"
                 name="username"
                 value={formData.username}
                 onChange={handleChange}
-                placeholder="Choose a username"
+                placeholder="Choose a username (optional)"
                 error={errors.username}
-                required
               />
 
               <Input

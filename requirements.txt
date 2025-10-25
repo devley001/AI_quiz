@@ -1,0 +1,8 @@
+the users profile has the following issues fix them
+1 it does not fetch the logged in users data from the backend- the system should determine the logged in user and fetch their details from the database to display on their profiles 
+2 it has unnecessary details- the user should not see last updated, account created, last login,status or role on their profiles
+3.the student profile should have like charts and graphs  on how the student has been performing on those quizs and should have a graph on how many posts they have seen/viewed against time.generate a module that can be used to save and retrieve this data to be displyed
+4.the quiz results should be fetched from the backend where they are stored and the overall average should be calculated from those results
+5.the download button is still not working . it should compile the whole users profile into a word document which can be downloaded
+
+fix all this errors in the system

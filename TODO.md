@@ -1,33 +1,15 @@
-# Profile Page Update TODO
-
-## Tasks to Complete
-
-- [x] Update Profile.jsx structure to display all user fields in card-based layout
-- [x] Add avatar display with placeholder if not available
-- [x] Implement editable fields (username, email) and read-only fields
-- [x] Mask password display
-- [x] Use formatters for date fields (lastLogin, createdAt, updatedAt)
-- [x] Organize fields into sections (Personal Information, Account Details)
-- [x] Enhance App.css with profile-specific styles (avatar, field groups, read-only styling)
-- [x] Ensure responsive design for mobile
-- [x] Create StudentProfile and QuizResult models
-- [x] Create studentController and quizController
-- [x] Add student and quiz routes
-- [x] Update User model to reference student profile
-- [x] Add password update functionality to userController
-- [x] Add download profile functionality using docx library
-- [x] Update Profile.jsx to fetch student profile and quiz results from backend
-- [x] Hide unnecessary fields (user ID, version, etc.) from profile display
-- [x] Add student profile section with grade, subjects, school, bio
-- [x] Add quiz results section with averages by topic and overall
-- [x] Add download button for user profile report in Word format
-- [x] Enhance update form to include password field
-- [x] Update userService.js with new API calls
-- [x] Install docx library in backend
-- [x] Register new routes in app.js
-- [ ] Test profile page display and functionality
-- [ ] Verify all fields are formatted correctly
-- [ ] Check for console errors or broken functionality
-- [ ] Test student profile creation and updates
-- [ ] Test quiz results display and averages calculation
-- [ ] Test profile download functionality
+- [x] Add username input field to Register.jsx form
+- [x] Update formData state to include username
+- [x] Add username validation in Register.jsx validate function
+- [x] Update authValidator.js to include username validation
+- [x] Fix authController.js to properly check for existing email or username
+- [x] Add 'teacher' role to User model enum
+- [x] Update PrivateRoute to redirect teachers to educator-dashboard
+- [x] Update Login.jsx to redirect teachers to educator-dashboard
+- [x] Update Register.jsx to redirect teachers to educator-dashboard after registration
+- [x] Make username optional for login (only email and password required)
+- [x] Update User model to make username optional
+- [x] Update registration validation to make username optional
+- [x] Update registration controller to handle optional username
+- [x] Make username optional in Register.jsx form (remove required attribute and update placeholder)
+- [ ] Test the registration flow

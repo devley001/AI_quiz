@@ -1,0 +1,317 @@
+/* Educator Dashboard Styles */
+
+.educator-dashboard {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+.dashboard-title {
+  color: #2c3e50;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.dashboard-subtitle {
+  color: #6c757d;
+  font-size: 1.1rem;
+  margin-bottom: 0;
+}
+
+/* Metric Cards */
+.metric-card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.metric-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.metric-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  opacity: 0.9;
+}
+
+.metric-card h3 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.metric-card p {
+  font-size: 0.9rem;
+  margin-bottom: 0;
+  opacity: 0.9;
+  font-weight: 500;
+}
+
+/* Dashboard Tabs */
+.dashboard-tabs .nav-tabs {
+  border: none;
+  background: white;
+  border-radius: 12px;
+  padding: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.dashboard-tabs .nav-tabs .nav-link {
+  border: none;
+  color: #6c757d;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.dashboard-tabs .nav-tabs .nav-link.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+}
+
+.dashboard-tabs .nav-tabs .nav-link:hover:not(.active) {
+  background-color: #f8f9fa;
+  color: #495057;
+}
+
+/* Cards */
+.dashboard-tabs .card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+  transition: box-shadow 0.2s ease;
+}
+
+.dashboard-tabs .card:hover {
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-tabs .card-header {
+  background: white;
+  border-bottom: 1px solid #e9ecef;
+  border-radius: 12px 12px 0 0 !important;
+  padding: 1.25rem 1.5rem;
+}
+
+.dashboard-tabs .card-header h5 {
+  color: #2c3e50;
+  font-weight: 600;
+  margin: 0;
+}
+
+.dashboard-tabs .card-body {
+  padding: 1.5rem;
+}
+
+/* Student Lists */
+.student-list {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.student-item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  border-radius: 8px;
+  background: #f8f9fa;
+  transition: background-color 0.2s ease;
+}
+
+.student-item:hover {
+  background: #e9ecef;
+}
+
+.student-item.top-performer {
+  border-left: 4px solid #28a745;
+}
+
+.student-item.needs-support {
+  border-left: 4px solid #dc3545;
+}
+
+.student-item .rank {
+  font-weight: 700;
+  color: #6c757d;
+  margin-right: 1rem;
+  min-width: 2rem;
+}
+
+.student-item .name {
+  flex: 1;
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+.student-item .score {
+  font-weight: 600;
+  color: #495057;
+}
+
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 1rem;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  border-radius: 8px;
+  color: white;
+}
+
+.stat-item:nth-child(2) {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.stat-item:nth-child(3) {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+
+.stat-item:nth-child(4) {
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+}
+
+.stat-item h4 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.stat-item p {
+  font-size: 0.85rem;
+  margin: 0;
+  opacity: 0.9;
+  font-weight: 500;
+}
+
+/* Charts */
+.recharts-cartesian-axis-tick-value {
+  font-size: 0.8rem;
+  fill: #6c757d;
+}
+
+.recharts-legend-item-text {
+  font-size: 0.85rem;
+  color: #495057;
+}
+
+.recharts-tooltip-wrapper {
+  outline: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .metric-card h3 {
+    font-size: 2rem;
+  }
+
+  .dashboard-tabs .nav-tabs .nav-link {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .student-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  .student-item .rank {
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .metric-card {
+    margin-bottom: 1rem;
+  }
+}
+
+/* Loading and Error States */
+.spinner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+}
+
+.error-container {
+  text-align: center;
+  padding: 2rem;
+}
+
+.error-container .btn {
+  margin-top: 1rem;
+}
+
+/* Custom Scrollbar */
+.student-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.student-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.student-list::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.student-list::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Animation for loading */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.metric-card,
+.dashboard-tabs .card {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Filter Controls */
+.form-select,
+.form-control {
+  border-radius: 8px;
+  border: 2px solid #e9ecef;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  transition: border-color 0.2s ease;
+}
+
+.form-select:focus,
+.form-control:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}

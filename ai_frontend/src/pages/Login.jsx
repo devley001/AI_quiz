@@ -20,14 +20,38 @@ const Login = () => {
     });
   };
 
+  const validate = () => {
+    if (!formData.email) {
+      return 'Email is required';
+    }
+    if (!formData.password) {
+      return 'Password is required';
+    }
+    return null;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     setError('');
 
+    const validationError = validate();
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
+
+    setLoading(true);
+
     try {
-      await login(formData);
-      navigate('/dashboard');
+      const response = await login(formData);
+      const userRole = response.data?.user?.role || response.user?.role;
+
+      // Redirect based on role
+      if (userRole === 'teacher') {
+        navigate('/educator-dashboard');
+      } else {
+        navigate('/dashboard');
+      }
     } catch (err) {
       setError(err.message || 'Login failed');
     } finally {

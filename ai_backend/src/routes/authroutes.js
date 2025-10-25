@@ -9,7 +9,7 @@ const authMiddleware = require('../middleware/authMiddleware');
 const { validateRegistration, validateLogin, validatePasswordUpdate } = require('../validators/authValidator');
 
 router.post('/register', validateRegistration, authController.register);
-router.post('/login', authController.login);
+router.post('/login', validateLogin, authController.login);
 router.get('/me', authMiddleware, authController.getMe);
 router.put('/update-password', authMiddleware, validatePasswordUpdate, authController.updatePassword);
 

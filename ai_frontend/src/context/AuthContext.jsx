@@ -17,6 +17,7 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [userFetched, setUserFetched] = useState(false);
 
   useEffect(() => {
     // Check if user is logged in on mount

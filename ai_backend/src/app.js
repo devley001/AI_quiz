@@ -13,6 +13,8 @@ const studentRoutes = require('./routes/studentroutes');
 const quizRoutes = require('./routes/quizroutes');
 const dataRoutes = require('./routes/dataroutes');
 const aiRoutes = require('./routes/airoutes');
+const educatorRoutes = require('./routes/educatorRoutes');
+const postViewRoutes = require('./routes/postViewRoutes');
 
 // Import middleware
 const errorMiddleware = require('./middleware/errormiddleware');
@@ -22,7 +24,14 @@ const app = express();
 // Security middleware
 app.use(helmet());
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+  origin: (origin, callback) => {
+    const allowedOrigins = ['http://localhost:3000', 'http://localhost:3001'];
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true
 }));
 
@@ -39,7 +48,6 @@ if (process.env.NODE_ENV === 'development') {
 const rateLimiter = require('./middleware/rateLimitermiddleware');
 app.use(rateLimiter);
 
-
 // API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
@@ -47,6 +55,8 @@ app.use('/api/students', studentRoutes);
 app.use('/api/quizzes', quizRoutes);
 app.use('/api/data', dataRoutes);
 app.use('/api/ai', aiRoutes);
+app.use('/api/educator', educatorRoutes);
+app.use('/api/post-views', postViewRoutes);
 
 // Health check
 app.get('/health', (req, res) => {

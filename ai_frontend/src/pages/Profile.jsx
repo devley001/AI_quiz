@@ -5,7 +5,6 @@ import userService from '../services/userService';
 
 const Profile = () => {
   const { user, updateUser } = useAuth();
-  const [studentProfile, setStudentProfile] = useState(null);
   const [quizResults, setQuizResults] = useState([]);
   const [averages, setAverages] = useState({ overall: 0, byTopic: {} });
   const [formData, setFormData] = useState({
@@ -50,7 +49,6 @@ const Profile = () => {
   const fetchStudentProfile = async () => {
     try {
       const response = await userService.getStudentProfile();
-      setStudentProfile(response.data);
       setStudentFormData({
         grade: response.data?.grade || '',
         subjects: response.data?.subjects || [],
@@ -142,9 +140,7 @@ const Profile = () => {
     }
   };
 
-  const maskPassword = (password) => {
-    return password ? '********' : 'Not set';
-  };
+
 
   if (loading) {
     return (
@@ -269,27 +265,6 @@ const Profile = () => {
                     <label>Status</label>
                     <div className={`field-value read-only status-${userData?.isActive ? 'active' : 'inactive'}`}>
                       {userData?.isActive ? 'Active' : 'Inactive'}
-                    </div>
-                  </div>
-
-                  <div className="field-group">
-                    <label>Last Login</label>
-                    <div className="field-value read-only">
-                      {userData?.lastLogin ? formatters.dateTime(userData.lastLogin) : 'Never'}
-                    </div>
-                  </div>
-
-                  <div className="field-group">
-                    <label>Account Created</label>
-                    <div className="field-value read-only">
-                      {userData?.createdAt ? formatters.date(userData.createdAt) : 'N/A'}
-                    </div>
-                  </div>
-
-                  <div className="field-group">
-                    <label>Last Updated</label>
-                    <div className="field-value read-only">
-                      {userData?.updatedAt ? formatters.timeAgo(userData.updatedAt) : 'N/A'}
                     </div>
                   </div>
                 </div>

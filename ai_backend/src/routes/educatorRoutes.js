@@ -7,7 +7,7 @@ const { authorize } = require('../middleware/authMiddleware');
 
 // All routes require authentication and educator/admin role
 router.use(authMiddleware);
-router.use(authorize('admin', 'educator'));
+router.use(authorize('admin', 'educator', 'teacher'));
 
 // Class Analytics
 router.get('/analytics/class', educatorController.getClassAnalytics);
@@ -23,6 +23,9 @@ router.get('/interventions/recommendations', educatorController.getInterventionR
 
 // Bloom's Taxonomy Distribution
 router.get('/analytics/blooms-distribution', educatorController.getBloomsTaxonomyDistribution);
+
+// Question Bank Analytics
+router.get('/analytics/question-bank', educatorController.getQuestionBankAnalytics);
 
 // Export Data
 router.get('/data/export', educatorController.exportAssessmentData);
