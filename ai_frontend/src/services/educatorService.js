@@ -54,11 +54,13 @@ class EducatorService {
       if (params.endDate) queryParams.append('endDate', params.endDate);
       if (params.topic) queryParams.append('topic', params.topic);
 
+      console.log('Fetching class analytics with params:', params);
       const response = await this.client.get(`/educator/analytics/class?${queryParams}`);
+      console.log('Class analytics response:', response.data);
       return response.data;
     } catch (error) {
-      console.error('Error fetching class analytics:', error);
-      throw new Error('Failed to fetch class analytics');
+      console.error('Error fetching class analytics:', error.response?.data || error.message);
+      throw new Error(`Failed to fetch class analytics: ${error.response?.data?.message || error.message}`);
     }
   }
 

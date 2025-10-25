@@ -29,8 +29,21 @@ const AIAssistant = () => {
   const [temperature, setTemperature] = useState(0.7);
 
   useEffect(() => {
-    setIsAuthenticated(authService.isAuthenticated());
+    const checkAuth = () => {
+      const authenticated = authService.isAuthenticated();
+      setIsAuthenticated(authenticated);
+    };
+    
+    checkAuth();
+    // Check auth status periodically in case it changes
+    const interval = setInterval(checkAuth, 1000);
+    return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    setResult(null);
+    setError(null);
+  }, [activeTab]);
 
   if (!isAuthenticated) {
     return <LoginPrompt message="Please login to access AI features" />;

@@ -24,7 +24,7 @@ exports.getClassAnalytics = async (req, res, next) => {
     const end = endDate ? new Date(endDate) : new Date();
 
     // Get all students
-    const students = await User.find({ role: 'user' });
+    const students = await User.find({ role: 'user' }).catch(() => []);
 
     // Get adaptive sessions within date range
     let sessionFilter = {
@@ -35,10 +35,12 @@ exports.getClassAnalytics = async (req, res, next) => {
 
     const sessions = await AdaptiveSession.find(sessionFilter)
       .populate('userId', 'name email')
-      .sort({ startTime: -1 });
+      .sort({ startTime: -1 })
+      .catch(() => []);
 
     // Get question bank stats
-    const questionStats = await QuestionBank.getQuestionStats(topic);
+    const questionStats = await QuestionBank.getQuestionStats(topic).catch(() => []);
+    const qbStats = questionStats[0] || { totalQuestions: 0, approvedQuestions: 0 };
 
     // Get IRT parameters distribution
     const irtStats = await IRTParameters.aggregate([
@@ -54,10 +56,11 @@ exports.getClassAnalytics = async (req, res, next) => {
           }
         }
       }
-    ]);
+    ]).catch(() => []);
+    const irtData = irtStats[0] || { avgDifficulty: 0, avgDiscrimination: 0 };
 
     // Get Bloom's taxonomy distribution
-    const bloomsDistribution = await BloomsData.getLevelDistribution(topic);
+    const bloomsDistribution = await BloomsData.getLevelDistribution(topic).catch(() => []);
 
     // Calculate ability distribution from sessions
     const abilityRanges = {
@@ -69,34 +72,45 @@ exports.getClassAnalytics = async (req, res, next) => {
       'expert': sessions.filter(s => s.finalAbility >= 1.0).length
     };
 
+    // Calculate difficulty distribution from IRT data
+    const difficultyDistribution = { easy: 0, medium: 0, hard: 0 };
+    if (irtData.difficultyDistribution) {
+      irtData.difficultyDistribution.forEach(diff => {
+        if (diff < -0.5) difficultyDistribution.easy++;
+        else if (diff > 0.5) difficultyDistribution.hard++;
+        else difficultyDistribution.medium++;
+      });
+    }
+
     // Calculate analytics
     const analytics = {
       totalStudents: students.length,
       totalSessions: sessions.length,
-      totalQuestions: questionStats[0]?.totalQuestions || 0,
-      approvedQuestions: questionStats[0]?.approvedQuestions || 0,
-      averageDifficulty: irtStats[0]?.avgDifficulty?.toFixed(2) || 0,
-      averageDiscrimination: irtStats[0]?.avgDiscrimination?.toFixed(2) || 0,
+      totalQuestions: qbStats.totalQuestions || 0,
+      approvedQuestions: qbStats.approvedQuestions || 0,
+      averageDifficulty: irtData.avgDifficulty ? irtData.avgDifficulty.toFixed(2) : '0.00',
+      averageDiscrimination: irtData.avgDiscrimination ? irtData.avgDiscrimination.toFixed(2) : '0.00',
       abilityDistribution: abilityRanges,
       bloomsLevelDistribution: bloomsDistribution,
       performanceMetrics: {
         averageAccuracy: sessions.length > 0
-          ? (sessions.reduce((sum, s) => sum + s.performanceMetrics.accuracy, 0) / sessions.length).toFixed(2)
+          ? Math.round((sessions.reduce((sum, s) => sum + (s.performanceMetrics?.accuracy || 0), 0) / sessions.length) * 100)
           : 0,
         averageQuestionsAnswered: sessions.length > 0
-          ? Math.round(sessions.reduce((sum, s) => sum + s.performanceMetrics.totalQuestions, 0) / sessions.length)
+          ? Math.round(sessions.reduce((sum, s) => sum + (s.performanceMetrics?.totalQuestions || 0), 0) / sessions.length)
           : 0,
         completionRate: sessions.length > 0
-          ? ((sessions.filter(s => s.status === 'completed').length / sessions.length) * 100).toFixed(1)
+          ? Math.round((sessions.filter(s => s.status === 'completed').length / sessions.length) * 100)
           : 0
       },
+      difficultyDistribution,
       recentActivity: sessions.slice(0, 10).map(s => ({
         sessionId: s.sessionId,
         studentName: s.userId?.name || 'Unknown',
         topic: s.topic,
-        finalAbility: s.finalAbility?.toFixed(2),
-        accuracy: s.performanceMetrics.accuracy?.toFixed(2),
-        questionsAnswered: s.performanceMetrics.totalQuestions,
+        finalAbility: s.finalAbility ? s.finalAbility.toFixed(2) : '0.00',
+        accuracy: s.performanceMetrics?.accuracy ? (s.performanceMetrics.accuracy * 100).toFixed(1) : '0.0',
+        questionsAnswered: s.performanceMetrics?.totalQuestions || 0,
         date: s.startTime
       })),
       strugglingStudents: await identifyStrugglingStudents(sessions),
@@ -336,9 +350,15 @@ exports.getBloomsTaxonomyDistribution = async (req, res, next) => {
         : 0;
     });
 
+    // Format distribution for frontend
+    const formattedDistribution = {};
+    Object.keys(bloomsStats).forEach(level => {
+      formattedDistribution[level] = bloomsStats[level].sessions;
+    });
+
     res.status(200).json(
       ApiResponse.success({
-        distribution,
+        distribution: formattedDistribution,
         performance,
         successRates,
         totalSessions: sessions.length,
@@ -557,12 +577,12 @@ async function identifyStrugglingStudents(sessions) {
     .map(stats => ({
       studentId: stats.studentId,
       studentName: stats.studentName,
-      averageAccuracy: (stats.totalAccuracy / stats.sessions.length).toFixed(2),
+      averageAccuracy: Math.round((stats.totalAccuracy / stats.sessions.length) * 100),
       sessionsCount: stats.sessions.length,
       totalQuestions: stats.totalQuestions
     }))
-    .filter(stats => parseFloat(stats.averageAccuracy) < 0.6)
-    .sort((a, b) => parseFloat(a.averageAccuracy) - parseFloat(b.averageAccuracy))
+    .filter(stats => stats.averageAccuracy < 60)
+    .sort((a, b) => a.averageAccuracy - b.averageAccuracy)
     .slice(0, 10); // Top 10 struggling students
 
   return struggling;
@@ -593,12 +613,12 @@ async function identifyTopPerformers(sessions) {
     .map(stats => ({
       studentId: stats.studentId,
       studentName: stats.studentName,
-      averageAccuracy: (stats.totalAccuracy / stats.sessions.length).toFixed(2),
+      averageAccuracy: Math.round((stats.totalAccuracy / stats.sessions.length) * 100),
       averageAbility: (stats.totalAbility / stats.sessions.length).toFixed(2),
       sessionsCount: stats.sessions.length
     }))
-    .filter(stats => parseFloat(stats.averageAccuracy) >= 0.85)
-    .sort((a, b) => parseFloat(b.averageAccuracy) - parseFloat(a.averageAccuracy))
+    .filter(stats => stats.averageAccuracy >= 85)
+    .sort((a, b) => b.averageAccuracy - a.averageAccuracy)
     .slice(0, 10); // Top 10 performers
 
   return topPerformers;

@@ -19,6 +19,7 @@ import PostDetail from './pages/PostDetail';
 import CreatePost from './pages/CreatePost';
 import AIAssistant from './pages/AIAssistant';
 import EducatorDashboard from './pages/EducatorDashboard';
+import TestEducatorDashboard from './pages/TestEducatorDashboard';
 import NotFound from './pages/NotFound';
 
 import './App.css';
@@ -44,6 +45,7 @@ function App() {
                 <Route path="create-post" element={<CreatePost />} />
                 <Route path="ai-assistant" element={<AIAssistant />} />
                 <Route path="educator-dashboard" element={<EducatorDashboard />} />
+                <Route path="test-educator-dashboard" element={<TestEducatorDashboard />} />
               </Route>
 
               {/* 404 */}

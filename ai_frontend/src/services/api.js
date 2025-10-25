@@ -36,11 +36,14 @@ api.interceptors.response.use(
   },
   (error) => {
     if (error.response) {
-      // Handle 401 Unauthorized
-      if (error.response.status === 401) {
+      // Handle 401 Unauthorized - only redirect if user is already logged in
+      if (error.response.status === 401 && localStorage.getItem('token')) {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
-        window.location.href = '/login';
+        // Only redirect if not already on login page
+        if (window.location.pathname !== '/login') {
+          window.location.href = '/login';
+        }
       }
       
       // Return error message from backend
