@@ -19,6 +19,8 @@ import PostDetail from './pages/PostDetail';
 import CreatePost from './pages/CreatePost';
 import AIAssistant from './pages/AIAssistant';
 import EducatorDashboard from './pages/EducatorDashboard';
+import TeacherDashboard from './pages/TeacherDashboard';
+import AdaptiveQuiz from './pages/AdaptiveQuiz';
 import TestEducatorDashboard from './pages/TestEducatorDashboard';
 import NotFound from './pages/NotFound';
 
@@ -45,6 +47,8 @@ function App() {
                 <Route path="create-post" element={<CreatePost />} />
                 <Route path="ai-assistant" element={<AIAssistant />} />
                 <Route path="educator-dashboard" element={<EducatorDashboard />} />
+                <Route path="teacher-dashboard" element={<TeacherDashboard />} />
+                <Route path="adaptive-quiz" element={<AdaptiveQuiz />} />
                 <Route path="test-educator-dashboard" element={<TestEducatorDashboard />} />
               </Route>
 

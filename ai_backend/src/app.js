@@ -14,6 +14,8 @@ const quizRoutes = require('./routes/quizroutes');
 const dataRoutes = require('./routes/dataroutes');
 const aiRoutes = require('./routes/airoutes');
 const educatorRoutes = require('./routes/educatorRoutes');
+const teacherRoutes = require('./routes/teacherRoutes');
+const adaptiveQuizRoutes = require('./routes/adaptiveQuizRoutes');
 const postViewRoutes = require('./routes/postViewRoutes');
 
 // Import middleware
@@ -56,6 +58,8 @@ app.use('/api/quizzes', quizRoutes);
 app.use('/api/data', dataRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/educator', educatorRoutes);
+app.use('/api/teacher', teacherRoutes);
+app.use('/api/adaptive-quiz', adaptiveQuizRoutes);
 app.use('/api/post-views', postViewRoutes);
 
 // Health check

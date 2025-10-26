@@ -53,8 +53,12 @@ const Header = () => {
             <>
               <Link to="/dashboard" className="nav-link">Dashboard</Link>
               <Link to="/ai-assistant" className="nav-link">AI Assistant</Link>
-              {currentUser?.role === 'educator' && (
-                <Link to="/educator-dashboard" className="nav-link">Educator Dashboard</Link>
+              <Link to="/adaptive-quiz" className="nav-link">Adaptive Quiz</Link>
+              {(currentUser?.role === 'educator' || currentUser?.role === 'teacher' || currentUser?.role === 'admin') && (
+                <>
+                  <Link to="/educator-dashboard" className="nav-link">Educator Dashboard</Link>
+                  <Link to="/teacher-dashboard" className="nav-link">Teacher Dashboard</Link>
+                </>
               )}
               <div className="user-menu">
                 <span>Welcome, {currentUser?.name || currentUser?.username || 'User'}</span>

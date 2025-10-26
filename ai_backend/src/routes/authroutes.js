@@ -11,6 +11,7 @@ const { validateRegistration, validateLogin, validatePasswordUpdate } = require(
 router.post('/register', validateRegistration, authController.register);
 router.post('/login', validateLogin, authController.login);
 router.get('/me', authMiddleware, authController.getMe);
+router.get('/users', authMiddleware, authController.getAllUsers);
 router.put('/update-password', authMiddleware, validatePasswordUpdate, authController.updatePassword);
 
 module.exports = router;

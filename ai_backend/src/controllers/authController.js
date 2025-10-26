@@ -117,6 +117,18 @@ exports.getMe = async (req, res, next) => {
   }
 };
 
+exports.getAllUsers = async (req, res, next) => {
+  try {
+    const users = await User.find({}).select('-password');
+    
+    res.status(200).json(
+      ApiResponse.success({ users }, 'Users retrieved successfully')
+    );
+  } catch (error) {
+    next(error);
+  }
+};
+
 exports.updatePassword = async (req, res, next) => {
   try {
     const { currentPassword, newPassword } = req.body;

@@ -61,8 +61,10 @@ const AIAssistant = () => {
 
     try {
       const response = await aiService.analyzeText(textInput);
-      setResult(response.data);
+      console.log('Analysis response:', response); // Debug log
+      setResult(response.data?.result || response.data);
     } catch (err) {
+      console.error('Analysis error:', err); // Debug log
       setError(err.message || 'Text analysis failed');
     } finally {
       setLoading(false);
@@ -220,9 +222,11 @@ const AIAssistant = () => {
                   onChange={(e) => setDifficulty(e.target.value)}
                   className="select-input"
                 >
+                  <option value="beginner">Beginner</option>
                   <option value="easy">Easy</option>
                   <option value="medium">Medium</option>
                   <option value="hard">Hard</option>
+                  <option value="expert">Expert</option>
                 </select>
               </div>
             </div>
@@ -252,7 +256,7 @@ const AIAssistant = () => {
             </div>
             <div className="input-row">
               <div className="input-group">
-                <label>Max Length:</label>
+                <label>Max Words:</label>
                 <input
                   type="number"
                   value={maxLength}
@@ -299,18 +303,82 @@ const AIAssistant = () => {
       const questions = quizData.questions || result.questions;
       
       const downloadQuiz = () => {
-        const content = `${quizTopic} Quiz\n\nTopic: ${quizTopic}\nQuestions: ${questions.length}\nDifficulty: ${difficulty}\n\n` +
-          questions.map((q, i) => 
-            `Question ${i + 1}: ${q.question}\n` +
-            q.options.map((opt, j) => `${String.fromCharCode(65 + j)}) ${opt}`).join('\n') +
-            '\n\n'
-          ).join('');
+        const htmlContent = `
+          <html>
+            <head>
+              <meta charset="utf-8">
+              <title>${quizTopic} Quiz</title>
+              <style>
+                body { font-family: 'Times New Roman', serif; margin: 1in; line-height: 1.6; }
+                .header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #000; padding-bottom: 10px; }
+                .question { margin-bottom: 25px; page-break-inside: avoid; }
+                .question-number { font-weight: bold; margin-bottom: 8px; }
+                .options { margin-left: 20px; }
+                .option { margin-bottom: 5px; }
+              </style>
+            </head>
+            <body>
+              <div class="header">
+                <h1>${quizTopic} Quiz</h1>
+                <p><strong>Difficulty:</strong> ${difficulty.toUpperCase()} Level</p>
+                <p><strong>Questions:</strong> ${questions.length}</p>
+                <p><strong>Generated:</strong> ${new Date().toLocaleDateString()}</p>
+              </div>
+              ${questions.map((q, i) => `
+                <div class="question">
+                  <div class="question-number">Question ${i + 1}:</div>
+                  <p>${q.question}</p>
+                  <div class="options">
+                    ${q.options.map((opt, j) => `<div class="option">${String.fromCharCode(65 + j)}) ${opt}</div>`).join('')}
+                  </div>
+                </div>
+              `).join('')}
+            </body>
+          </html>
+        `;
         
-        const blob = new Blob([content], { type: 'text/plain' });
+        const blob = new Blob([htmlContent], { type: 'application/msword' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `${quizTopic.replace(/\s+/g, '_')}_Quiz.txt`;
+        a.download = `${quizTopic.replace(/\s+/g, '_')}_${difficulty}_Quiz.doc`;
+        a.click();
+        URL.revokeObjectURL(url);
+      };
+      
+      const downloadAnswerKey = () => {
+        const htmlContent = `
+          <html>
+            <head>
+              <meta charset="utf-8">
+              <title>${quizTopic} Quiz - Answer Key</title>
+              <style>
+                body { font-family: 'Times New Roman', serif; margin: 1in; line-height: 1.6; }
+                .header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #000; padding-bottom: 10px; }
+                .answer { margin-bottom: 10px; padding: 5px; background-color: #f0f0f0; }
+                .correct { color: #006600; font-weight: bold; }
+              </style>
+            </head>
+            <body>
+              <div class="header">
+                <h1>${quizTopic} Quiz - Answer Key</h1>
+                <p><strong>Difficulty:</strong> ${difficulty.toUpperCase()} Level</p>
+                <p><strong>Generated:</strong> ${new Date().toLocaleDateString()}</p>
+              </div>
+              ${questions.map((q, i) => {
+                const correctIndex = q.correctAnswer;
+                const correctLetter = String.fromCharCode(65 + correctIndex);
+                return `<div class="answer"><span class="correct">${i + 1}. ${correctLetter}) ${q.options[correctIndex]}</span></div>`;
+              }).join('')}
+            </body>
+          </html>
+        `;
+        
+        const blob = new Blob([htmlContent], { type: 'application/msword' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${quizTopic.replace(/\s+/g, '_')}_${difficulty}_AnswerKey.doc`;
         a.click();
         URL.revokeObjectURL(url);
       };
@@ -318,10 +386,15 @@ const AIAssistant = () => {
       return (
         <div className="result-section">
           <div className="quiz-header-actions">
-            <h4>Generated Quiz: {quizTopic}</h4>
-            <button onClick={downloadQuiz} className="btn btn-secondary">
-              Download Quiz
-            </button>
+            <h4>Generated Quiz: {quizTopic} ({difficulty.toUpperCase()})</h4>
+            <div className="download-buttons">
+              <button onClick={downloadQuiz} className="btn btn-secondary">
+                📄 Download Quiz
+              </button>
+              <button onClick={downloadAnswerKey} className="btn btn-outline">
+                🔑 Download Answer Key
+              </button>
+            </div>
           </div>
           <Quiz 
             quizData={quizData} 
@@ -352,14 +425,60 @@ const AIAssistant = () => {
     }
 
     // Handle text analysis results
-    if (activeTab === 'text-analysis' && (result.sentiment || result.entities || result.keywords)) {
+    if (activeTab === 'text-analysis' && result) {
+      console.log('Rendering result:', result); // Debug log
       return (
         <div className="result-section">
-          <h4>Analysis Results:</h4>
+          <h4>Text Analysis Results:</h4>
           <div className="analysis-results">
+            {result.text_summary && (
+              <div className="analysis-card">
+                <h5>📝 Text Summary</h5>
+                <p>{result.text_summary}</p>
+              </div>
+            )}
+            
+            {result.main_concepts && result.main_concepts.length > 0 && (
+              <div className="analysis-card">
+                <h5>🎯 Main Concepts</h5>
+                <div className="concepts-list">
+                  {result.main_concepts.map((concept, index) => (
+                    <div key={index} className="concept-item">
+                      <strong>{concept.concept}</strong> (appears {concept.frequency} times)
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+            
+            {result.concept_meanings && result.concept_meanings.length > 0 && (
+              <div className="analysis-card">
+                <h5>💡 Concept Meanings</h5>
+                <div className="meanings-list">
+                  {result.concept_meanings.map((meaning, index) => (
+                    <div key={index} className="meaning-item">
+                      <h6>{meaning.concept}</h6>
+                      <p><strong>Meaning:</strong> {meaning.meaning}</p>
+                      <p><strong>Importance:</strong> {meaning.importance}</p>
+                      {meaning.context_usage && meaning.context_usage.length > 0 && (
+                        <div>
+                          <strong>Usage Examples:</strong>
+                          <ul>
+                            {meaning.context_usage.map((usage, i) => (
+                              <li key={i}>{usage}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+            
             {result.sentiment && (
               <div className="analysis-card">
-                <h5>Sentiment Analysis</h5>
+                <h5>😊 Sentiment Analysis</h5>
                 <div className="sentiment-result">
                   <span className={`sentiment-label ${result.sentiment.label?.toLowerCase()}`}>
                     {result.sentiment.label}
@@ -371,9 +490,22 @@ const AIAssistant = () => {
               </div>
             )}
             
+            {result.keywords && result.keywords.length > 0 && (
+              <div className="analysis-card">
+                <h5>🔑 Keywords</h5>
+                <div className="keywords-list">
+                  {result.keywords.map((keyword, index) => (
+                    <span key={index} className="keyword-tag">
+                      {keyword}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+            
             {result.entities && result.entities.length > 0 && (
               <div className="analysis-card">
-                <h5>Named Entities</h5>
+                <h5>🏷️ Entities</h5>
                 <div className="entities-list">
                   {result.entities.map((entity, index) => (
                     <span key={index} className="entity-tag">
@@ -384,16 +516,27 @@ const AIAssistant = () => {
               </div>
             )}
             
-            {result.keywords && result.keywords.length > 0 && (
-              <div className="analysis-card">
-                <h5>Keywords</h5>
-                <div className="keywords-list">
-                  {result.keywords.map((keyword, index) => (
-                    <span key={index} className="keyword-tag">
-                      {keyword}
-                    </span>
-                  ))}
+            <div className="analysis-card">
+              <h5>📊 Text Statistics</h5>
+              <div className="stats-grid">
+                <div className="stat-item">
+                  <strong>Word Count:</strong> {result.word_count || textInput.split(' ').length || 0}
                 </div>
+                <div className="stat-item">
+                  <strong>Character Count:</strong> {result.character_count || textInput.length || 0}
+                </div>
+              </div>
+            </div>
+            
+            {/* Debug info - remove in production */}
+            {(!result.main_concepts || result.main_concepts.length === 0) && (
+              <div className="analysis-card" style={{backgroundColor: '#fff3cd', border: '1px solid #ffeaa7'}}>
+                <h5>🔧 Debug Info</h5>
+                <p>Input text: "{textInput}"</p>
+                <p>Result keys: {Object.keys(result).join(', ')}</p>
+                <pre style={{fontSize: '12px', maxHeight: '200px', overflow: 'auto'}}>
+                  {JSON.stringify(result, null, 2)}
+                </pre>
               </div>
             )}
           </div>
@@ -401,15 +544,19 @@ const AIAssistant = () => {
       );
     }
 
-    // Fallback - hide technical details
-    return (
-      <div className="result-section">
-        <h4>Result:</h4>
-        <div className="simple-result">
-          <p>Processing completed successfully.</p>
+    // Fallback for other results
+    if (result) {
+      return (
+        <div className="result-section">
+          <h4>Analysis Complete:</h4>
+          <div className="simple-result">
+            <pre>{JSON.stringify(result, null, 2)}</pre>
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
+    
+    return null;
   };
 
   return (

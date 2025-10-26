@@ -25,7 +25,7 @@ const aiService = {
   // Text Generation
   generateText: async (prompt, options = {}) => {
     const response = await api.post('/ai/process', {
-      requestType: 'text_generation',
+      requestType: 'text-generation',
       input: { 
         prompt, 
         options: {

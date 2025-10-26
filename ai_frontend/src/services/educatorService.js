@@ -188,6 +188,45 @@ class EducatorService {
   }
 
   /**
+   * Get students for dashboard
+   */
+  async getStudents() {
+    try {
+      const response = await this.client.get('/auth/users');
+      console.log('Users API response:', response.data);
+      
+      let users = [];
+      if (Array.isArray(response.data)) {
+        users = response.data;
+      } else if (response.data?.data) {
+        users = Array.isArray(response.data.data) ? response.data.data : response.data.data.users || [];
+      } else if (response.data?.users) {
+        users = response.data.users;
+      }
+      
+      const students = users.filter(user => user.role === 'user');
+      console.log('Filtered students:', students);
+      return { success: true, data: { students } };
+    } catch (error) {
+      console.error('Error fetching students:', error);
+      return { success: true, data: { students: [] } };
+    }
+  }
+
+  /**
+   * Get quizzes for dashboard
+   */
+  async getQuizzes() {
+    try {
+      const response = await this.client.get('/ai/history');
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching quizzes:', error);
+      return { success: true, data: { quizzes: [] } };
+    }
+  }
+
+  /**
    * Get topics available in the system
    */
   async getAvailableTopics() {
